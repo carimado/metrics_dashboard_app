@@ -98,7 +98,7 @@ Tech:
 - Framer Motion for animations and transitions 
 
 ---
-## User Flow
+## Planning - Wireframes & User Flow
 
 ![Wireframe](./WireframeV1.png)
 ![User Flow](./Miro%20-%20Metrics%20Dashboard.jpg)
