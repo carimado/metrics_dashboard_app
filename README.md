@@ -4,7 +4,8 @@ For Project #4: React Application @ General Assembly
 Welcome to my project, here is a link to [my app]()!
 - Link to [GA Gist](https://gist.git.generalassemb.ly/katie/d4c2013a89a9a3da9650cc6c5851b07f) - Project Brief
 - Link to [my Miro Board](https://miro.com/app/board/uXjVPlVqlbw=/) - Login and User Flow
-- Link to [Trello Board]() - Project Management
+- Link to [Trello Board](https://trello.com/b/2TsOmtxS/metrics-dashboard) - Project Management
+- Link to [Notion](https://clarencearimado.notion.site/Design-Inspiration-for-Metrics-Dashboard-40b84e72a8e846808b2e24c25d4430e4) - Design Inspiration
 
 ---
 
@@ -21,9 +22,9 @@ Tech:
         - ReactRouter (2 paths)
         - Jest
     - Data Visualisation
-        - React-Vis - Charting Library
+        - [React-Vis](https://uber.github.io/react-vis/) - Charting Library
     - CSS
-        - Material UI
+        - [Material UI](https://mui.com/)
         - Styled Components
             - yarn add styled-components
         - EXTRA - Tailwind CSS
@@ -97,8 +98,9 @@ Tech:
 - Framer Motion for animations and transitions 
 
 ---
-## Miro Board - User Flow
+## User Flow
 
+![Wireframe](./WireframeV1.png)
 ![User Flow](./Miro%20-%20Metrics%20Dashboard.jpg)
 
 ---
