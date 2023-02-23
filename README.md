@@ -67,8 +67,8 @@ Tech:
 - Design Inspiration and Mockups
 
 [] Stage 1 - Data Planning
+- Firestore Firebase (NoSQL) / Supabase (SQL)
 - Design Table Schema
-- Firestore Firebase
 - SQL Commands
 
 [] Stage 2 - Developing Basic Functionality
@@ -100,7 +100,8 @@ Tech:
 ---
 ## Planning - Wireframes & User Flow
 
-![Wireframe](./WireframeV1.png)
-![User Flow](./Miro%20-%20Metrics%20Dashboard.jpg)
+![Wireframe](./planning/WireframeV1.png)
+![User Flow](./planning/Miro%20-%20Metrics%20Dashboard.jpg)
+![Database Schema](./planning/v1dbschema.png)
 
 ---
