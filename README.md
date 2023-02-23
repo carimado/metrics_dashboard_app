@@ -67,8 +67,8 @@ Tech:
 - Design Inspiration and Mockups
 
 [] Stage 1 - Data Planning
-- Firestore Firebase (NoSQL) / Supabase (SQL)
-- Design Table Schema
+- Firestore Firebase (NoSQL) ✓
+- Design Table Schema ✓
 - SQL Commands
 
 [] Stage 2 - Developing Basic Functionality

@@ -1,0 +1,21 @@
+.metric-card-container {
+    margin: 0.5rem;
+
+}
+
+.card-contents {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.051);
+    padding: 1rem;
+    height: 200px;
+}
+
+.card-contents:hover {
+    cursor: pointer;
+}
+

@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
+
+.header-container {
+    /* background-color: red; */
+    margin-left: 1rem;
+    margin-bottom: 1rem;
+}
+
+.header-contents > h1 {
+    font-size: 1.5em;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    /* background-color: blue; */
+}
+
+.header-contents > h2 {
+    font-size: 0.75em;
+    font-weight: light;
+    color: rgb(152, 152, 152);
+    margin-top: -1rem;
+}
+
+.wave {
+    animation-name: wave-animation;  
+    animation-duration: 2.5s;       
+    animation-iteration-count: infinite;  
+    transform-origin: 70% 70%;       
+    display: inline-block;
+}
+  
+@keyframes wave-animation {
+      0% { transform: rotate( 0.0deg) }
+     10% { transform: rotate(14.0deg) }  
+     20% { transform: rotate(-8.0deg) }
+     30% { transform: rotate(14.0deg) }
+     40% { transform: rotate(-4.0deg) }
+     50% { transform: rotate(10.0deg) }
+     60% { transform: rotate( 0.0deg) }  
+    100% { transform: rotate( 0.0deg) }
+}
+  
