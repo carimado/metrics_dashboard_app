@@ -1,64 +1,21 @@
 import './App.css';
-// import Sidebar from './Sidebar'
-// import MetricCard from './MetricCard';
-// import Header from './Header';
-import { useState, useEffect } from 'react';
-import { db } from './firebase-config';
-import { collection, getDocs } from 'firebase/firestore';
 
 import { BrowserRouter as Router, Routes , Route } from 'react-router-dom';
 import SignUp from './SignUp';
 import SignIn from './SignIn';
-
+import Dashboard from './Dashboard';
 
 function App() {
 
-  const [numberOfOnboardings, setNumberOfOnboardings] = useState([]);
-  const numberOfOnboardingsCollectionRef = collection(db, "numberOfOnboardings")
-  // console.log(numberOfOnboardings[0].onboardingRemaining)
-
-  useEffect(() => {
-    const getNumberOfOnboardings = async () => {
-      const data = await getDocs(numberOfOnboardingsCollectionRef);
-      // console.log(data)
-      setNumberOfOnboardings(data.docs.map(doc => ({...doc.data(), id: doc.id})))
-    }
-    getNumberOfOnboardings();
-
-  }, []);
-
-  let totalOnboardings = numberOfOnboardings.reduce((acc, curr) => {
-    return acc + curr.onboardingRemaining
-  }, 0)
-  // console.log(totalOnboardings)
-
-
-
   return (
     <div className="App">
-      {/* <div style={{backgroundImage: `url(${banner})`}}></div> */}
-      {/* <Sidebar className="sidebar"/>
-      <div className="dashboard-container">
-        <Header className="header"/>
-        <div className="card-container">
-          <MetricCard  totalOnboardings={totalOnboardings} />
-          <MetricCard  />
-          <MetricCard  />
-          <MetricCard  />
-          <MetricCard  />
-          <MetricCard  />
-        </div>
-      </div> */}
       <Router>
         <Routes>
-          <Route path='/signup' element={<SignUp />} />
-          <Route path='/' />
-          <Route path='/signin' element={<SignIn />} />
+          <Route path='/signup' element={ <SignUp /> } />
+          <Route path='/' element={ <Dashboard /> }/>
+          <Route path='/signin' element={ <SignIn /> } />
         </Routes>
       </Router>
-
-
-
     </div>
   );
 }

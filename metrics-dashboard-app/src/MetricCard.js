@@ -6,7 +6,7 @@ import './MetricCard.css';
 // create a sub component for the card contents
 
 export default function MetricCard(props) {
-    console.log(props)
+    console.log({props})
 
     const { active, onClick } = props;
 
