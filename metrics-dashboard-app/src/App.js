@@ -1,41 +1,17 @@
 import './App.css';
-import Sidebar from './Sidebar'
-import MetricCard from './MetricCard';
-import Header from './Header';
+// import Sidebar from './Sidebar'
+// import MetricCard from './MetricCard';
+// import Header from './Header';
 import { useState, useEffect } from 'react';
-
 import { db } from './firebase-config';
 import { collection, getDocs } from 'firebase/firestore';
 
+import { BrowserRouter as Router, Routes , Route } from 'react-router-dom';
+import SignUp from './SignUp';
+import SignIn from './SignIn';
+
 
 function App() {
-  // const [users, setUsers] = useState([]);
-  // const usersCollectionRef = collection(db, "users")
-
-
-  // useEffect(() => {
-  //   const getUsers = async () => {
-  //     const data = await getDocs(usersCollectionRef);
-  //     // console.log(data)
-  //     setUsers(data.docs.map(doc => ({...doc.data(), id: doc.id})))
-  //   }
-  //   getUsers();
-
-  // }, []);
-
-  // const [ICParticipatedAndClosed, setICParticipatedAndClosed] = useState([]);
-  // const ICParticipatedAndClosedCollectionRef = collection(db, "ICParticipatedAndClosed")
-  // console.log(ICParticipatedAndClosed)
-
-  // useEffect(() => {
-  //   const getICParticipatedAndClosed = async () => {
-  //     const data = await getDocs(ICParticipatedAndClosedCollectionRef);
-  //     console.log(data)
-  //     setICParticipatedAndClosed(data.docs.map(doc => ({...doc.data(), id: doc.id})))
-  //   }
-  //   getICParticipatedAndClosed();
-
-  // }, []);
 
   const [numberOfOnboardings, setNumberOfOnboardings] = useState([]);
   const numberOfOnboardingsCollectionRef = collection(db, "numberOfOnboardings")
@@ -56,10 +32,12 @@ function App() {
   }, 0)
   // console.log(totalOnboardings)
 
+
+
   return (
     <div className="App">
       {/* <div style={{backgroundImage: `url(${banner})`}}></div> */}
-      <Sidebar className="sidebar"/>
+      {/* <Sidebar className="sidebar"/>
       <div className="dashboard-container">
         <Header className="header"/>
         <div className="card-container">
@@ -70,17 +48,24 @@ function App() {
           <MetricCard  />
           <MetricCard  />
         </div>
-      </div>
+      </div> */}
+      <Router>
+        <Routes>
+          <Route path='/signup' element={<SignUp />} />
+          <Route path='/' />
+          <Route path='/signin' element={<SignIn />} />
+        </Routes>
+      </Router>
+
+
+
     </div>
   );
 }
 
 export default App;
 
-// Questions: 
-// Data - 
-// 1. Are my collections/documents structured correctly?
-
 // Layout - 
 // 1. Is how im passing data correct? Parent -> Child
 // 2. When I click on a card, i want to remove all cards and show one large card with data.
+// 3. Dashboard Template?
