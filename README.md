@@ -69,12 +69,11 @@ Tech:
 [] Stage 1 - Data Planning
 - Firestore Firebase (NoSQL) ✓
 - Design Table Schema ✓
-- SQL Commands
 
 [] Stage 2 - Developing Basic Functionality
-- Navbar Component
+- Navbar Component ✓
 - Card Component (Collapsed and Expanded) Functionality
-- User Input to DB
+- User Input to DB 
 - Login and Logout Form & Routes
 
 [] Stage 3 - Basic Styling of Components
