@@ -4,15 +4,18 @@ import React from 'react'
 import Sidebar from './Sidebar'
 import MetricCard from './MetricCard';
 import Header from './Header';
+import MetricTable from './Table';
 
 import { useState, useEffect } from 'react';
 import { db } from './firebase-config';
 import { collection, getDocs } from 'firebase/firestore';
-import MetricTable from './Table';
-
 import { useNavigate } from 'react-router-dom';
 
+import { motion } from 'framer-motion'
+
 export default function Dashboard() {
+    const [numberOfOnboardings, setNumberOfOnboardings] = useState([]);
+    const [isOpen, setIsOpen] = useState(false);
 
     let navigate = useNavigate()
     useEffect(() => {
@@ -27,7 +30,7 @@ export default function Dashboard() {
     }, [])
     
 
-    const [numberOfOnboardings, setNumberOfOnboardings] = useState([]);
+
     console.log(numberOfOnboardings)
     // const [numberOfIntercomClosed, setNumberOfIntercomClosed] = useState([]);
 
@@ -93,7 +96,11 @@ export default function Dashboard() {
             <div className="dashboard-container">
                 <Header className="header"/>
                 <div className="card-container">
-                    <MetricCard  totalOnboardings={totalOnboardings} />
+                    <motion.div className='card' onClick={() => setIsOpen(!isOpen)}>
+                      {isOpen ? <MetricCard style={{display: "none"}} totalOnboardings={totalOnboardings} /> : <MetricCard  totalOnboardings={totalOnboardings} />}
+
+                      {isOpen && <MetricTable numberOfOnboardings={numberOfOnboardings}/> }
+                    </motion.div>
                     {/* <MetricCard  totalIntercomClosed={totalIntercomClosed}/> */}
                     {/* <MetricCard  />
                     <MetricCard  />
@@ -102,9 +109,8 @@ export default function Dashboard() {
                 </div>
             </div>
             {/* {numberOfOnboardings ?? <MetricTable onboarding={numberOfOnboardings}/>} */}
-            <div hidden>
-              <MetricTable numberOfOnboardings={numberOfOnboardings}/>
-            </div>
+
+              {/* <MetricTable numberOfOnboardings={numberOfOnboardings}/> */}
         </div>
     )
 }

@@ -8,14 +8,10 @@ import './MetricCard.css';
 export default function MetricCard(props) {
     console.log({props})
 
-    const { active, onClick } = props;
-
     return (
-        <div className={`metric-card ${active ? 'active' : ''}`} onClick={onClick}>
-            <div className="metric-card-container">
-                <div className="card-contents">
-                    <h1>{props.totalOnboardings}</h1>
-                </div>
+        <div className="metric-card-container">
+            <div className="card-contents">
+                <h1>{props.totalOnboardings}</h1>
             </div>
         </div>
     )
