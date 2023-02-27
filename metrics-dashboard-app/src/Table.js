@@ -74,7 +74,7 @@ export default function MetricTable(props) {
         <form>
         <input type={'text'} placeholder={'Email'} />
         <input type={'text'} placeholder={'Week'} />
-        <input type={'text'} placeholder={'Onboarding'} />
+        <input type={'text'} placeholder={'Number of Onboardings'} />
         <button>Submit</button>
         </form>
       </div>

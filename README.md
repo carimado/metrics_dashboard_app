@@ -62,11 +62,11 @@ Tech:
 ## Project Plan
 
 [✓] Ideation and Planning
-- User Stories & Features
-- Create Wireframes
-- Design Inspiration and Mockups
+- User Stories & Features ✓
+- Create Wireframes ✓
+- Design Inspiration and Mockups ✓
 
-[] Stage 1 - Data Planning
+[✓] Stage 1 - Data Planning
 - Firestore Firebase (NoSQL) ✓
 - Design Table Schema ✓
 
@@ -82,6 +82,7 @@ Tech:
 - Dashboard Styled
 
 [] Stage 4 - Developing Main Functionality and Working with Data
+- Table Layout and Design ✓
 - Card Expanded - Table
 - Display User Input to Table
 

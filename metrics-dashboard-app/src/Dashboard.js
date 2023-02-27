@@ -10,7 +10,21 @@ import { db } from './firebase-config';
 import { collection, getDocs } from 'firebase/firestore';
 import MetricTable from './Table';
 
+import { useNavigate } from 'react-router-dom';
+
 export default function Dashboard() {
+  
+    let navigate = useNavigate()
+    useEffect(() => {
+      let authToken = sessionStorage.getItem('Auth Token')
+      if (!authToken) {
+        navigate('/signin')
+      }
+      if (authToken) {
+        navigate('/')
+      }
+    }, [])
+    
 
     const [numberOfOnboardings, setNumberOfOnboardings] = useState([]);
     console.log(numberOfOnboardings)
