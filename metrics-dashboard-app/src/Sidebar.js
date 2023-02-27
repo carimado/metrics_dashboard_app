@@ -1,66 +1,45 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-// import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import Divider from '@mui/material/Divider';
+import './Sidebar.css'
+import DashboardRoundedIcon from '@mui/icons-material/DashboardRounded';
+import Groups2RoundedIcon from '@mui/icons-material/Groups2Rounded';
+import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
+import MenuBookRoundedIcon from '@mui/icons-material/MenuBookRounded';
+import ChatRoundedIcon from '@mui/icons-material/ChatRounded';
+import ExitToAppRoundedIcon from '@mui/icons-material/ExitToAppRounded';
+import { useNavigate } from 'react-router-dom';
+import logo from './img/logo.jpg'
 
 export default function Sidebar() {
+  let navigate = useNavigate()
+  const handleLogout = () => {
+    sessionStorage.removeItem('Auth Token')
+    navigate('/signin')
+  }
   return (
-    <Box sx={{ width: '100%', maxWidth: 200, bgcolor: 'background.paper' }}>
-      <nav aria-label="main mailbox folders">
-        <List>
-          <ListItem disablePadding>
-            <ListItemButton>
-              {/* <ListItemIcon>
-
-              </ListItemIcon> */}
-              <ListItemText primary="Dashboard" />
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton>
-              {/* <ListItemIcon>
-
-              </ListItemIcon> */}
-              <ListItemText primary="Team" />
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton>
-              {/* <ListItemIcon>
-                
-              </ListItemIcon> */}
-              <ListItemText primary="Individual" />
-            </ListItemButton>
-          </ListItem>
-        </List>
-      </nav>
-      <Divider />
-      <nav aria-label="secondary mailbox folders">
-        <List>
-          <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemText primary="Settings" />
-            </ListItemButton>
-          </ListItem>
-        </List>
-      </nav>
-    </Box>
+      <div className="sidebar">
+          <div className="sidebar__header">
+              <img src={logo} alt="" />
+              <p>Welcome back, <br></br><span className='username'>Clarence! </span><span className="wave">👋</span></p>
+          </div>
+          <div className="sidebar__body">
+              <div className="sidebar__body__item">
+                  <DashboardRoundedIcon fontSize='small' />
+                  <p>Dashboard</p>
+                  <Groups2RoundedIcon fontSize='small' />
+                  <p>Team</p>
+                  <PersonRoundedIcon fontSize='small' />
+                  <p>Individual</p>
+                  <MenuBookRoundedIcon fontSize='small' />
+                  <p>Resources</p>
+                  <ChatRoundedIcon fontSize='small' />
+                  <p>Chat</p>
+              </div>
+          </div>
+          <div className="sidebar__footer">
+            <ExitToAppRoundedIcon fontSize='small' />
+            <button onClick={handleLogout}>Logout</button>
+          </div>
+      </div>  
   );
 }
 
 
-
-// export default function Sidebar() {
-//     return (
-//         <aside>
-//             <div>Home</div>
-//             <div>Team</div>
-//             <div>Individual</div>
-//             <div>Settings</div>
-//         </aside>
-//     )
-// }

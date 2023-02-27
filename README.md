@@ -74,7 +74,7 @@ Tech:
 - Navbar Component ✓
 - Card Component (Collapsed and Expanded) Functionality
 - User Input to DB 
-- Login and Logout Form & Routes
+- Login and Logout Form & Routes ✓
 
 [] Stage 3 - Basic Styling of Components
 - Navbar Styled

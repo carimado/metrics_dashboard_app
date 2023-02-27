@@ -13,10 +13,11 @@ import MetricTable from './Table';
 import { useNavigate } from 'react-router-dom';
 
 export default function Dashboard() {
-  
+
     let navigate = useNavigate()
     useEffect(() => {
       let authToken = sessionStorage.getItem('Auth Token')
+      console.log(authToken)
       if (!authToken) {
         navigate('/signin')
       }
@@ -59,10 +60,6 @@ export default function Dashboard() {
       }
       
       getNumberOfOnboardings()
-      
-    
-        
-      
 
 
       // const getNumberOfIntercomClosed = async () => {
@@ -105,7 +102,9 @@ export default function Dashboard() {
                 </div>
             </div>
             {/* {numberOfOnboardings ?? <MetricTable onboarding={numberOfOnboardings}/>} */}
-            <MetricTable numberOfOnboardings={numberOfOnboardings}/>
+            <div hidden>
+              <MetricTable numberOfOnboardings={numberOfOnboardings}/>
+            </div>
         </div>
     )
 }
