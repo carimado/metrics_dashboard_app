@@ -5,10 +5,40 @@ export default function MetricTable(props) {
 
   const { numberOfOnboardings } = props
   
-  numberOfOnboardings.map((person) => {
-    console.log(person)
+  let dateOfOnboarding = numberOfOnboardings.map((data) => {
+    return data.date
   })
+
+  let convertDateOfOnboarding = dateOfOnboarding.map((date) => {
+    return new Date(date.seconds * 1000)
+  })
+
   
+  // get each persons number of onboarding
+  let eachPersonsNumberOfOnboarding = numberOfOnboardings.map((data) => {
+    return data.onboardingRemaining
+  })
+  console.log(eachPersonsNumberOfOnboarding)
+  
+  // put the corresponding week and each persons number of onboarding into an object
+  let correspondingWeekAndEachPersonsNumberOfOnboarding = []
+  for (let i = 0; i < convertDateOfOnboarding.length; i++) {
+    correspondingWeekAndEachPersonsNumberOfOnboarding.push({
+      email: numberOfOnboardings[i].email,
+      week: getWeek(convertDateOfOnboarding[i]),
+      onboarding: eachPersonsNumberOfOnboarding[i]
+    })
+  }
+  console.log({correspondingWeekAndEachPersonsNumberOfOnboarding})
+  
+  if (dateOfOnboarding) {
+    let correspondingWeek = convertDateOfOnboarding.map((date) => {
+      return getWeek(date)
+    })
+    if (correspondingWeek === correspondingWeekAndEachPersonsNumberOfOnboarding) {
+      console.log('same')
+    }
+  }
 
   const getCurrentDate = new Date()
   const currentWeek = getWeek(getCurrentDate)
@@ -23,20 +53,38 @@ export default function MetricTable(props) {
   return (
     <div>
       <table>
+        <th>Email</th>
         {weekArray.map((week, index) => {
           return (
               <th>{week}</th>
           )
         })}
-
+        {correspondingWeekAndEachPersonsNumberOfOnboarding.map((data, index) => {
+          return (
+            <tr>
+              <td>{data.email}</td>
+              <td>{data.week}</td>
+              <td>{data.onboarding}</td>
+            </tr>
+          )
+        })}
       </table>
+
+      <div>
+        <form>
+        <input type={'text'} placeholder={'Email'} />
+        <input type={'text'} placeholder={'Week'} />
+        <input type={'text'} placeholder={'Onboarding'} />
+        <button>Submit</button>
+        </form>
+      </div>
     </div>
   )
 }
 
 // TO DO - 
-// I want to render this table with the data from the DB
-// I want it to adhere to a week view - each column is 1 week
+// I want to render this table with the data from the DB - DONE 
+// I want it to adhere to a week view - each column is 1 week 
 // I want to be able to add/update data onto this form
 
 // Getting the current date and finding the current week based on that date using the getWeek() - 8
@@ -46,4 +94,3 @@ export default function MetricTable(props) {
 
 // Logic for insertings a person value in the right column
 // When mapping through the object, grab date from the object and pass it to the getweek()
-//

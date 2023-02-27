@@ -7,12 +7,13 @@ import Header from './Header';
 
 import { useState, useEffect } from 'react';
 import { db } from './firebase-config';
-import { collection, query, getDocs } from 'firebase/firestore';
+import { collection, getDocs } from 'firebase/firestore';
 import MetricTable from './Table';
 
 export default function Dashboard() {
 
     const [numberOfOnboardings, setNumberOfOnboardings] = useState([]);
+    console.log(numberOfOnboardings)
     // const [numberOfIntercomClosed, setNumberOfIntercomClosed] = useState([]);
 
     // console.log(numberOfIntercomClosed, numberOfOnboardings)
