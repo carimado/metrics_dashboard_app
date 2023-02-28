@@ -1,4 +1,5 @@
 import './Dashboard.css'
+import banner from './img/banner.jpg'
 
 import React from 'react'
 import Sidebar from './Sidebar'
@@ -13,7 +14,6 @@ import { collection, getDocs } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 
 import { motion } from 'framer-motion'
-import fi from 'date-fns/esm/locale/fi/index.js';
 
 export default function Dashboard() {
     const [numberOfOnboardings, setNumberOfOnboardings] = useState([]);
@@ -103,7 +103,6 @@ export default function Dashboard() {
 
     return (
         <div className="dashboard">
-            {/* <div style={{backgroundImage: `url(${banner})`}}></div> */} 
             <Sidebar className="sidebar"/>
             <div className="dashboard-container">
                 <Header className="header"/>

@@ -6,6 +6,12 @@
     margin-bottom: 1rem;
 }
 
+.header-banner > img {
+    height: 5rem;
+    margin-right: 0.5rem;
+}
+
+
 .header-contents > h1 {
     font-size: 1.5em;
     font-family: 'Roboto', sans-serif;

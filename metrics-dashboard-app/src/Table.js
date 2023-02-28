@@ -1,6 +1,5 @@
 import "./Table.css";
 import * as React from "react";
-
 import { getWeek } from "date-fns";
 // import TableInput from './TableInput';
 
