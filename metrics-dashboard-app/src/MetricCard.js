@@ -6,12 +6,15 @@ import './MetricCard.css';
 // create a sub component for the card contents
 
 export default function MetricCard(props) {
+    // console.log({props})
     console.log({props})
+    
 
     return (
         <div className="metric-card-container">
             <div className="card-contents">
                 <h1>{props.totalOnboardings}</h1>
+                <p>{props.session}</p>
             </div>
         </div>
     )

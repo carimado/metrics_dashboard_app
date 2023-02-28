@@ -16,6 +16,10 @@ export default function SignIn( ) {
     .then((response) => {
       navigate('/')
       sessionStorage.setItem('Auth Token', response._tokenResponse.refreshToken)
+      sessionStorage.setItem('CurrentUser', response.user.email)
+      console.log(sessionStorage.getItem('CurrentUser'))
+      // console.log(response.user.email)
+      
     })
     .catch((error) => {
       console.log(error)

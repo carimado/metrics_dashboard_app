@@ -27,6 +27,7 @@ function App() {
     if (id === 2) {
       signInWithEmailAndPassword(authetication, email, password)
       .then((response) => {
+        console.log({response})
         navigate('/')
         sessionStorage.setItem('Auth Token', response._tokenResponse.refreshToken)
       })

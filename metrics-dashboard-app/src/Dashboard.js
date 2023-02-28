@@ -20,7 +20,7 @@ export default function Dashboard() {
     let navigate = useNavigate()
     useEffect(() => {
       let authToken = sessionStorage.getItem('Auth Token')
-      console.log(authToken)
+      // console.log(authToken)
       if (!authToken) {
         navigate('/signin')
       }
@@ -89,6 +89,8 @@ export default function Dashboard() {
     //   return acc + curr.numberClosed
     // }, 0)
 
+
+
     return (
         <div className="dashboard">
             {/* <div style={{backgroundImage: `url(${banner})`}}></div> */} 
@@ -97,9 +99,9 @@ export default function Dashboard() {
                 <Header className="header"/>
                 <div className="card-container">
                     <motion.div className='card' onClick={() => setIsOpen(!isOpen)}>
-                      {isOpen ? <MetricCard style={{display: "none"}} totalOnboardings={totalOnboardings} /> : <MetricCard  totalOnboardings={totalOnboardings} />}
+                      {isOpen ? <MetricCard style={{display: "none"}} session={sessionStorage.getItem('CurrentUser')} totalOnboardings={totalOnboardings} /> : <MetricCard  totalOnboardings={totalOnboardings} />}
 
-                      {isOpen && <MetricTable numberOfOnboardings={numberOfOnboardings}/> }
+                      {isOpen && <MetricTable numberOfOnboardings={numberOfOnboardings} /> }
                     </motion.div>
                     {/* <MetricCard  totalIntercomClosed={totalIntercomClosed}/> */}
                     {/* <MetricCard  />

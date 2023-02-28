@@ -41,6 +41,7 @@ export default function MetricTable(props) {
   }
 
   const getCurrentDate = new Date()
+  console.log(getCurrentDate)
   const currentWeek = getWeek(getCurrentDate)
   console.log(currentWeek)
 
@@ -56,7 +57,7 @@ export default function MetricTable(props) {
         <th>Email</th>
         {weekArray.map((week, index) => {
           return (
-              <th>{week}</th>
+              <th id={index}>{week}</th>
           )
         })}
         {correspondingWeekAndEachPersonsNumberOfOnboarding.map((data, index) => {
@@ -77,6 +78,9 @@ export default function MetricTable(props) {
         <input type={'text'} placeholder={'Number of Onboardings'} />
         <button>Submit</button>
         </form>
+        <div id='clarence-9'>
+
+        </div>
       </div>
     </div>
   )
