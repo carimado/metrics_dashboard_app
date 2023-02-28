@@ -17,7 +17,7 @@ export default function SignIn( ) {
       navigate('/')
       sessionStorage.setItem('Auth Token', response._tokenResponse.refreshToken)
       sessionStorage.setItem('CurrentUser', response.user.email)
-      console.log(sessionStorage.getItem('CurrentUser'))
+      // console.log(sessionStorage.getItem('CurrentUser'))
       // console.log(response.user.email)
       
     })

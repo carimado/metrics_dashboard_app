@@ -1,0 +1,15 @@
+.table-container {
+    border: 1px solid green;
+}
+
+.table-header {
+    border: 1px solid purple;
+}
+
+.table-row {
+    border: 1px solid pink;
+}
+
+.table-data {
+    border: 1px solid blue;
+}

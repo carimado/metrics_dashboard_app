@@ -72,12 +72,12 @@ Tech:
 
 [] Stage 2 - Developing Basic Functionality
 - Navbar Component ✓
-- Card Component (Collapsed and Expanded) Functionality
+- Card Component (Collapsed and Expanded) Functionality 
 - User Input to DB 
 - Login and Logout Form & Routes ✓
 
 [] Stage 3 - Basic Styling of Components
-- Navbar Styled
+- Navbar Styled ✓
 - Card Collapsed Styled
 - Dashboard Styled
 

@@ -1,94 +1,114 @@
-import * as React from 'react';
-import { getWeek } from  'date-fns'
+import "./Table.css";
+import * as React from "react";
+
+import { getWeek } from "date-fns";
+// import TableInput from './TableInput';
 
 export default function MetricTable(props) {
+  const { numberOfOnboardings } = props;
 
-  const { numberOfOnboardings } = props
-  
+  const employees = [];
+  for (let i = 0; i < numberOfOnboardings.length; i++) {
+    const report = numberOfOnboardings[i];
+    let employee = employees.find((e) => {
+      return e.email === report.email;
+    });
+    if (!employee) {
+      employee = {
+        email: report.email,
+        numberPerWeek: {},
+      };
+      employees.push(employee);
+    }
+    const week = getWeek(new Date(report.date.seconds * 1000));
+    employee.numberPerWeek[week] = report.onboardingRemaining;
+  }
+  console.log(employees);
+
   let dateOfOnboarding = numberOfOnboardings.map((data) => {
-    return data.date
-  })
+    return data.date;
+  });
 
   let convertDateOfOnboarding = dateOfOnboarding.map((date) => {
-    return new Date(date.seconds * 1000)
-  })
+    return new Date(date.seconds * 1000);
+  });
 
-  
   // get each persons number of onboarding
   let eachPersonsNumberOfOnboarding = numberOfOnboardings.map((data) => {
-    return data.onboardingRemaining
-  })
-  console.log(eachPersonsNumberOfOnboarding)
-  
+    return data.onboardingRemaining;
+  });
+  console.log(eachPersonsNumberOfOnboarding);
+
   // put the corresponding week and each persons number of onboarding into an object
-  let correspondingWeekAndEachPersonsNumberOfOnboarding = []
+  let correspondingWeekAndEachPersonsNumberOfOnboarding = [];
   for (let i = 0; i < convertDateOfOnboarding.length; i++) {
     correspondingWeekAndEachPersonsNumberOfOnboarding.push({
       email: numberOfOnboardings[i].email,
       week: getWeek(convertDateOfOnboarding[i]),
-      onboarding: eachPersonsNumberOfOnboarding[i]
-    })
+      onboarding: eachPersonsNumberOfOnboarding[i],
+    });
   }
-  console.log({correspondingWeekAndEachPersonsNumberOfOnboarding})
-  
+  console.log({ correspondingWeekAndEachPersonsNumberOfOnboarding });
+
   if (dateOfOnboarding) {
     let correspondingWeek = convertDateOfOnboarding.map((date) => {
-      return getWeek(date)
-    })
-    if (correspondingWeek === correspondingWeekAndEachPersonsNumberOfOnboarding) {
-      console.log('same')
+      return getWeek(date);
+    });
+    if (
+      correspondingWeek === correspondingWeekAndEachPersonsNumberOfOnboarding
+    ) {
+      console.log("same");
     }
   }
 
-  const getCurrentDate = new Date()
-  console.log(getCurrentDate)
-  const currentWeek = getWeek(getCurrentDate)
-  console.log(currentWeek)
+  const getCurrentDate = new Date();
+  // console.log(getCurrentDate)
+  const currentWeek = getWeek(getCurrentDate);
+  // console.log(currentWeek)
 
-  const weekArray = []
+  const weekArray = [];
   for (let i = 1; i <= currentWeek; i++) {
-    weekArray.push(`Week ${i}`)
+    weekArray.push(i);
   }
-  console.log(weekArray)
+  // console.log(weekArray)
 
   return (
     <div>
-      <table>
-        <th>Email</th>
+      <table className="table-container">
+        <th className="table-header">Email</th>
         {weekArray.map((week, index) => {
           return (
-              <th id={index}>{week}</th>
-          )
+            <th id={index} className="table-header">
+              Week {week}
+            </th>
+          );
         })}
-        {correspondingWeekAndEachPersonsNumberOfOnboarding.map((data, index) => {
+        {employees.map((employee, index) => {
           return (
-            <tr>
-              <td>{data.email}</td>
-              <td>{data.week}</td>
-              <td>{data.onboarding}</td>
+            <tr className="table-row">
+              <td className="table-data">{employee.email}</td>
+              {weekArray.map((week, index) => {
+                return (
+                  <td id={index} className="table-header">
+                    {employee.numberPerWeek[week]}
+                  </td>
+                );
+              })}
+              {/* <td>{data.week}</td>
+              <td>{data.onboarding}</td> */}
             </tr>
-          )
+          );
         })}
       </table>
 
-      <div>
-        <form>
-        <input type={'text'} placeholder={'Email'} />
-        <input type={'text'} placeholder={'Week'} />
-        <input type={'text'} placeholder={'Number of Onboardings'} />
-        <button>Submit</button>
-        </form>
-        <div id='clarence-9'>
-
-        </div>
-      </div>
+      {/* PUT TABLE INPUT COMPONENT HERE WHEN CARD FUNCTIONALITY WORKS */}
     </div>
-  )
+  );
 }
 
-// TO DO - 
-// I want to render this table with the data from the DB - DONE 
-// I want it to adhere to a week view - each column is 1 week 
+// TO DO -
+// I want to render this table with the data from the DB - DONE
+// I want it to adhere to a week view - each column is 1 week
 // I want to be able to add/update data onto this form
 
 // Getting the current date and finding the current week based on that date using the getWeek() - 8

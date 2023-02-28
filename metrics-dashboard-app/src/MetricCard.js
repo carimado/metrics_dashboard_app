@@ -7,7 +7,7 @@ import './MetricCard.css';
 
 export default function MetricCard(props) {
     // console.log({props})
-    console.log({props})
+
     
 
     return (
