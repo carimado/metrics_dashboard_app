@@ -17,7 +17,6 @@ import { motion } from 'framer-motion'
 
 export default function Dashboard() {
     const [numberOfOnboardings, setNumberOfOnboardings] = useState([]);
-    const [isOpen, setIsOpen] = useState(false);
 
     let navigate = useNavigate()
     useEffect(() => {
@@ -100,6 +99,15 @@ export default function Dashboard() {
     // 3. add up the onboarding remaining for each user
     // 4. display the total onboarding remaining for the last entry from each user
 
+    const [isOpen, setIsOpen] = useState(false);
+
+    const handleClick = () => {
+      setIsOpen(!isOpen)
+    }
+
+    const handleCloseClick = () => {
+      setIsOpen(false)
+    }
 
     return (
         <div className="dashboard">
@@ -107,11 +115,19 @@ export default function Dashboard() {
             <div className="dashboard-container">
                 <Header className="header"/>
                 <div className="card-container">
-                    <motion.div className='card' onClick={() => setIsOpen(!isOpen)}>
-                      {isOpen ? <MetricCard style={{display: "none"}} session={sessionStorage.getItem('CurrentUser')} totalOnboardings={totalOnboardings} /> : <MetricCard  totalOnboardings={totalOnboardings} />}
 
-                      {isOpen && <MetricTable numberOfOnboardings={numberOfOnboardings} /> }
+                    <motion.div className='card' onClick={isOpen ? undefined : handleClick}>
+
+                      {/* If the card is open display the table inside the white box with a button to close */}
+                      {isOpen ? ( <MetricCard session={sessionStorage.getItem('CurrentUser')} totalOnboardings={totalOnboardings}>
+                      </MetricCard>
+                      
+                      ) : ( <MetricCard totalOnboardings={totalOnboardings}></MetricCard> )}
+
+                      {isOpen && (<MetricTable numberOfOnboardings={numberOfOnboardings} isOpen={isOpen} handleCloseClick={handleCloseClick}/>)}
+
                     </motion.div>
+
                     {/* <MetricCard  totalIntercomClosed={totalIntercomClosed}/> */}
                     {/* <MetricCard  />
                     <MetricCard  />
@@ -119,11 +135,7 @@ export default function Dashboard() {
                     <MetricCard  /> */}
                 </div>
             </div>
-            {/* {numberOfOnboardings ?? <MetricTable onboarding={numberOfOnboardings}/>} */}
-
               {/* <MetricTable numberOfOnboardings={numberOfOnboardings}/> */}
-
-              <TableInput session={sessionStorage.getItem('CurrentUser')}/>
         </div>
     )
 }
@@ -142,6 +154,3 @@ export default function Dashboard() {
   // }
   // getNumberOfOnboardings();
 
-  // let totalIntercomClosed = numberOfIntercomClosed.reduce((acc, curr) => {
-    //   return acc + curr.numberClosed
-    // }, 0)

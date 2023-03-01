@@ -1,10 +1,12 @@
 import "./Table.css";
 import * as React from "react";
 import { getWeek } from "date-fns";
-// import TableInput from './TableInput';
+import TableInput from './TableInput';
+import { useEffect, useState } from "react";
 
-export default function MetricTable(props) {
-  const { numberOfOnboardings } = props;
+ 
+export default function MetricTable({numberOfOnboardings, isOpen, handleCloseClick}) {
+
 
   const employees = [];
   for (let i = 0; i < numberOfOnboardings.length; i++) {
@@ -71,10 +73,20 @@ export default function MetricTable(props) {
   }
   // console.log(weekArray)
 
+  // get the isopen state from the dashboard component, when the x button is clicked the card will collapse and be sent back to parent
+  const [isCardOpen, setIsCardOpen] = useState(isOpen);
+
+  const handleCardCollapse = () => {
+    setIsCardOpen(!isCardOpen);
+    handleCloseClick();
+  };
+
+
   return (
     <div>
+      <button className="close-button" onClick={handleCardCollapse}> X </button>
       <table className="table-container">
-        <th className="table-header">Email</th>
+        <th className="table-header">Name</th>
         {weekArray.map((week, index) => {
           return (
             <th id={index} className="table-header">
@@ -100,7 +112,7 @@ export default function MetricTable(props) {
         })}
       </table>
 
-      {/* PUT TABLE INPUT COMPONENT HERE WHEN CARD FUNCTIONALITY WORKS */}
+      <TableInput session={sessionStorage.getItem('CurrentUser')}/>
     </div>
   );
 }
