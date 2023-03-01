@@ -3,16 +3,16 @@ import { useEffect, useState } from "react"
 import { db } from './firebase-config';
 
 export default function TableInput({session}) {
-    const [ numberOfOnboardings, setNumberOfOnboardings ] = useState('')
+    const [ numberOfOnboardings, setNumberOfOnboardings ] = useState('');
+
 
     const handleSubmitTableInput = async (e) => {
         e.preventDefault()
         
         const onboardingNumber = Number(numberOfOnboardings)
-
         if (!isNaN(onboardingNumber)) {
 
-            const docRef = addDoc(collection(db, 'numberOfOnboardings'), {
+            const docRef = await addDoc(collection(db, 'numberOfOnboardings'), {
                 email: session,
                 date: Timestamp.fromDate(new Date()),
                 onboardingRemaining: onboardingNumber
@@ -25,6 +25,7 @@ export default function TableInput({session}) {
             alert('Please enter a number')
         }
     }
+
 
     const handleInputChange = (e) => {
         setNumberOfOnboardings(e.target.value)

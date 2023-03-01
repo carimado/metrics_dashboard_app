@@ -1,12 +1,10 @@
 import './Dashboard.css'
-import banner from './img/banner.jpg'
 
 import React from 'react'
 import Sidebar from './Sidebar'
 import MetricCard from './MetricCard';
 import Header from './Header';
 import MetricTable from './Table';
-import TableInput from './TableInput';
 
 import { useState, useEffect } from 'react';
 import { db } from './firebase-config';
@@ -17,6 +15,7 @@ import { motion } from 'framer-motion'
 
 export default function Dashboard() {
     const [numberOfOnboardings, setNumberOfOnboardings] = useState([]);
+    const [isOpen, setIsOpen] = useState(false);
 
     let navigate = useNavigate()
     useEffect(() => {
@@ -29,7 +28,13 @@ export default function Dashboard() {
       }
     }, [])
     
+    const handleClick = () => {
+      setIsOpen(!isOpen)
+    }
 
+    const handleCloseClick = () => {
+      setIsOpen(false)
+    }
 
     console.log(numberOfOnboardings)
     // const [numberOfIntercomClosed, setNumberOfIntercomClosed] = useState([]);
@@ -95,19 +100,32 @@ export default function Dashboard() {
     // console.log(lastSevenDaysOnboardings)
 
     // 1. get the onboarding object
-    // 2. filter each document for the last entry from each user
-    // 3. add up the onboarding remaining for each user
-    // 4. display the total onboarding remaining for the last entry from each user
+    // 2. filter for each user and the last entry timestamp
+    // 3. put the entry in an array
 
-    const [isOpen, setIsOpen] = useState(false);
+    const totalOnboardingRemainingForEachUser = []
 
-    const handleClick = () => {
-      setIsOpen(!isOpen)
-    }
+    numberOfOnboardings.forEach((item) => {
+      console.log(item)
+      const user = totalOnboardingRemainingForEachUser.find((user) => user.email === item.email)
+      // get only the last entry for each user??
+      if (!user) {
+        totalOnboardingRemainingForEachUser.push({
+          email: item.email,
+          onboardingRemaining: item.onboardingRemaining,
+          date: {
+            seconds: item.date.seconds,
+            nanoseconds: item.date.nanoseconds
+          }
+        })
+      } else {
+        user.onboardingRemaining = item.onboardingRemaining
+      }
+    })
 
-    const handleCloseClick = () => {
-      setIsOpen(false)
-    }
+    console.log(totalOnboardingRemainingForEachUser)
+
+
 
     return (
         <div className="dashboard">
@@ -135,7 +153,6 @@ export default function Dashboard() {
                     <MetricCard  /> */}
                 </div>
             </div>
-              {/* <MetricTable numberOfOnboardings={numberOfOnboardings}/> */}
         </div>
     )
 }
