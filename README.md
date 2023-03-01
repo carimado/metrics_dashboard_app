@@ -72,21 +72,25 @@ Tech:
 
 [] Stage 2 - Developing Basic Functionality
 - Navbar Component ✓
-- Card Component (Collapsed and Expanded) Functionality 
-- User Input to DB 
+- Card Component (Collapsed and Expanded) Functionality ✓
+- User Input to DB ✓
 - Login and Logout Form & Routes ✓
 
 [] Stage 3 - Basic Styling of Components
 - Navbar Styled ✓
-- Card Collapsed Styled
+- Card Collapsed Styled 
 - Dashboard Styled
 
 [] Stage 4 - Developing Main Functionality and Working with Data
 - Table Layout and Design ✓
-- Card Expanded - Table
-- Display User Input to Table
+- Card Expanded - Table ✓
+- Display User Input to Table ✓
 
-[] Stage 5 - Finish Styling
+[] Stage 5 - Debugging and Clean Code
+- Fixing Calculation Bugs 
+- Refactoring Code
+
+[] Stage 6 - Finish Styling
 - Finalise Style
 - Add Card Hover Effects and Transitions
 - Login/Logout Transition

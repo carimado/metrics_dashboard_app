@@ -134,7 +134,7 @@ export default function Dashboard() {
                 <Header className="header"/>
                 <div className="card-container">
 
-                    <motion.div className='card' onClick={isOpen ? undefined : handleClick}>
+                    <motion.div className='card' onClick={isOpen ? undefined : handleClick} whileHover={{ scale: 1.05 }}>
 
                       {/* If the card is open display the table inside the white box with a button to close */}
                       {isOpen ? ( <MetricCard session={sessionStorage.getItem('CurrentUser')} totalOnboardings={totalOnboardings}>
