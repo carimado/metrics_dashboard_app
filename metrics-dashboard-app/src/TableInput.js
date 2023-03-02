@@ -1,3 +1,6 @@
+import './TableInput.css';
+import { TextField } from '@mui/material';
+
 import { collection, doc, addDoc, setDoc, Timestamp } from "firebase/firestore"
 import { useEffect, useState } from "react"
 import { db } from './firebase-config';
@@ -34,9 +37,18 @@ export default function TableInput({session}) {
     return (
         <div>
             <form onClick={handleSubmitTableInput}>
-                <input type={'text'} placeholder={'Number of Onboardings'} value={numberOfOnboardings} onChange={handleInputChange}/>
-            <button>Submit</button>
-        </form>
+                {/* <TextField
+                className='table-input'
+                    id="outlined-number"
+                    label="Number"
+                    type="number"
+                    InputLabelProps={{
+                        shrink: true,
+                    }} 
+                    size="small" /> */}
+                <input type={'text'} placeholder={'# Customers Remaining'} value={numberOfOnboardings} onChange={handleInputChange}/>
+                <button className='submit'>Submit</button>
+            </form>
       </div>
     )
 }

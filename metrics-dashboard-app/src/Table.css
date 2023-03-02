@@ -1,9 +1,12 @@
 .table-container {
-    border: 1px solid green;
+    background-color: white;
+    padding: 5px;
 }
 
 .table-header {
-    border: 1px solid purple;
+    border: 1px solid black;
+    font-size: 12px;
+    padding: 5px;
 }
 
 .table-row {
@@ -11,5 +14,11 @@
 }
 
 .table-data {
-    border: 1px solid blue;
+    border: 1px solid black;
+}
+
+.table-data-name {
+    border: 1px solid black;
+    font-size: 12px;
+    padding: 5px;
 }

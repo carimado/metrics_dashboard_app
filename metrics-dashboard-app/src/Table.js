@@ -86,7 +86,7 @@ export default function MetricTable({numberOfOnboardings, isOpen, handleCloseCli
     <div>
       <button className="close-button" onClick={handleCardCollapse}> X </button>
       <table className="table-container">
-        <th className="table-header">Name</th>
+        <th className="table-header name-data">Name</th>
         {weekArray.map((week, index) => {
           return (
             <th id={index} className="table-header">
@@ -97,7 +97,7 @@ export default function MetricTable({numberOfOnboardings, isOpen, handleCloseCli
         {employees.map((employee, index) => {
           return (
             <tr className="table-row">
-              <td className="table-data">{employee.email}</td>
+              <td className="table-data table-data-name">{employee.email}</td>
               {weekArray.map((week, index) => {
                 return (
                   <td id={index} className="table-header">
