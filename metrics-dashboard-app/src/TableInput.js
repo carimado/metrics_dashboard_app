@@ -36,7 +36,7 @@ export default function TableInput({session}) {
 
     return (
         <div>
-            <form onClick={handleSubmitTableInput}>
+            <form>
                 {/* <TextField
                 className='table-input'
                     id="outlined-number"
@@ -47,7 +47,7 @@ export default function TableInput({session}) {
                     }} 
                     size="small" /> */}
                 <input type={'text'} placeholder={'# Customers Remaining'} value={numberOfOnboardings} onChange={handleInputChange}/>
-                <button className='submit'>Submit</button>
+                <button className='submit' onClick={handleSubmitTableInput}>Submit</button>
             </form>
       </div>
     )
