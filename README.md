@@ -70,7 +70,7 @@ Tech:
 - Firestore Firebase (NoSQL) ✓
 - Design Table Schema ✓
 
-[] Stage 2 - Developing Basic Functionality
+[✓] Stage 2 - Developing Basic Functionality
 - Navbar Component ✓
 - Card Component (Collapsed and Expanded) Functionality ✓
 - User Input to DB ✓
@@ -81,7 +81,7 @@ Tech:
 - Card Collapsed Styled 
 - Dashboard Styled
 
-[] Stage 4 - Developing Main Functionality and Working with Data
+[✓] Stage 4 - Developing Main Functionality and Working with Data
 - Table Layout and Design ✓
 - Card Expanded - Table ✓
 - Display User Input to Table ✓

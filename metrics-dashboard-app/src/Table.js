@@ -8,23 +8,48 @@ import { useEffect, useState } from "react";
 export default function MetricTable({numberOfOnboardings, isOpen, handleCloseClick}) {
 
 
+  // 1. loop through the numberOfOnboardings
+  // 2. 
+
   const employees = [];
   for (let i = 0; i < numberOfOnboardings.length; i++) {
-    const report = numberOfOnboardings[i];
+    let report = numberOfOnboardings[i];
+    // for (const [key, value] of Object.entries(report)) {
+    //   let employeeRecords = []
+    //   console.log(`${key}:${value}`)
+
+    //   if ()
+    // }
+    
+    
+
     let employee = employees.find((e) => {
+      let dates = []
+      for (let item in report) {
+        console.log(item)
+        dates.push(item.e)
+      }
+      console.log(dates)
       return e.email === report.email;
     });
     if (!employee) {
       employee = {
         email: report.email,
         numberPerWeek: {},
+        date: report.date,
+        latestNumber: 0
       };
+
       employees.push(employee);
     }
     const week = getWeek(new Date(report.date.seconds * 1000));
+
     employee.numberPerWeek[week] = report.onboardingRemaining;
+    
+    console.log(report.onboardingRemaining)
   }
-  console.log(employees);
+
+  console.log(employees)
 
   let dateOfOnboarding = numberOfOnboardings.map((data) => {
     return data.date;
@@ -95,10 +120,12 @@ export default function MetricTable({numberOfOnboardings, isOpen, handleCloseCli
           );
         })}
         {employees.map((employee, index) => {
+          console.log(employee, index)
           return (
             <tr className="table-row">
               <td className="table-data table-data-name">{employee.email}</td>
               {weekArray.map((week, index) => {
+                console.log(week)
                 return (
                   <td id={index} className="table-header">
                     {employee.numberPerWeek[week]}

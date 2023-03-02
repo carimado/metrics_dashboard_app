@@ -36,7 +36,7 @@ export default function Dashboard() {
       setIsOpen(false)
     }
 
-    console.log(numberOfOnboardings)
+    // console.log(numberOfOnboardings)
     // const [numberOfIntercomClosed, setNumberOfIntercomClosed] = useState([]);
 
     // console.log(numberOfIntercomClosed, numberOfOnboardings)
@@ -90,42 +90,33 @@ export default function Dashboard() {
       return acc + curr.onboardingRemaining
     }, 0)
 
-    
-    // let lastSevenDays = new Date();
-    // lastSevenDays.setDate(lastSevenDays.getDate() - 7);
 
-    // let lastSevenDaysOnboardings = numberOfOnboardings.filter((item) => {
-    //   return new Date(item.date) > lastSevenDays
-    // })
-    // console.log(lastSevenDaysOnboardings)
+    // Steps to implement total for each user:
+    // 1. loop through the numberOfOnboardings object
+    // 2. check each of the elements for the latest date for each user
+    // 3. push it to an array to total/reduce it
 
-    // 1. get the onboarding object
-    // 2. filter for each user and the last entry timestamp
-    // 3. put the entry in an array
 
-    const totalOnboardingRemainingForEachUser = []
 
-    numberOfOnboardings.forEach((item) => {
-      console.log(item)
-      const user = totalOnboardingRemainingForEachUser.find((user) => user.email === item.email)
-      // get only the last entry for each user??
-      if (!user) {
-        totalOnboardingRemainingForEachUser.push({
-          email: item.email,
-          onboardingRemaining: item.onboardingRemaining,
-          date: {
-            seconds: item.date.seconds,
-            nanoseconds: item.date.nanoseconds
-          }
-        })
-      } else {
-        user.onboardingRemaining = item.onboardingRemaining
-      }
+
+
+
+    const totalForEachUser = numberOfOnboardings.forEach((user) => {
+      // I need to insert validation to only return each unique users entry against the date
+      console.log(user.date)
+
+      // const date = user.date.toDate()
+      // const email = user.email
+
+      // const today = new Date()
+
+      // const difference = today - date
+
+
     })
 
-    console.log(totalOnboardingRemainingForEachUser)
-
-
+    console.log(totalForEachUser)
+    
 
     return (
         <div className="dashboard">
@@ -134,9 +125,8 @@ export default function Dashboard() {
                 <Header className="header"/>
                 <div className="card-container">
 
-                    <motion.div className='card' onClick={isOpen ? undefined : handleClick} whileHover={{ scale: 1.05 }}>
+                    <motion.div data-testid="test-click" className='card' onClick={isOpen ? undefined : handleClick} whileHover={{ scale: 1.05 }}>
 
-                      {/* If the card is open display the table inside the white box with a button to close */}
                       {isOpen ? ( <MetricCard session={sessionStorage.getItem('CurrentUser')} totalOnboardings={totalOnboardings}>
                       </MetricCard>
                       
@@ -170,4 +160,41 @@ export default function Dashboard() {
   //   setNumberOfOnboardings(data.docs.map(doc => ({...doc.data(), id: doc.id})))
   // }
   // getNumberOfOnboardings();
+
+
+      // let lastSevenDays = new Date();
+    // lastSevenDays.setDate(lastSevenDays.getDate() - 7);
+
+    // let lastSevenDaysOnboardings = numberOfOnboardings.filter((item) => {
+    //   return new Date(item.date) > lastSevenDays
+    // })
+    // console.log(lastSevenDaysOnboardings)
+
+    // 1. get the onboarding object
+    // 2. filter for each user and the last entry timestamp
+    // 3. put the entry in an array
+
+    // const totalOnboardingRemainingForEachUser = []
+
+    // numberOfOnboardings.forEach((item) => {
+    //   console.log(item)
+    //   const user = totalOnboardingRemainingForEachUser.find((user) => user.email === item.email)
+    //   // get only the last entry for each user??
+    //   if (!user) {
+    //     totalOnboardingRemainingForEachUser.push({
+    //       email: item.email,
+    //       onboardingRemaining: item.onboardingRemaining,
+    //       date: {
+    //         seconds: item.date.seconds,
+    //         nanoseconds: item.date.nanoseconds
+    //       }
+    //     })
+    //   } else {
+    //     user.onboardingRemaining = item.onboardingRemaining
+    //   }
+    // })
+
+    // console.log(totalOnboardingRemainingForEachUser)
+
+    // check the date and for each user get the latest entry
 
