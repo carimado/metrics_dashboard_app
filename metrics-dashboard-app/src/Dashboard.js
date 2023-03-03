@@ -110,24 +110,35 @@ export default function Dashboard() {
                 <Header className="header"/>
                 <div className="card-container">
                     <motion.div data-testid="test-click" className='card' onClick={isOpen ? undefined : handleClick} whileHover={{ scale: 1.05 }}>
-                      {/* Rendering of card contents when expanded */}
-                      {isOpen ? ( <MetricTable numberOfOnboardings={numberOfOnboardings} isOpen={isOpen} handleCloseClick={handleCloseClick}/>
-                      
-                      // Rendering of the card contents on the Dashboard
-                      ) : ( <MetricCard totalOnboardings={totalOnboardings} title={"Total Onboarding Remaining"}></MetricCard> )}
-
+                      {/* Expanded */}
+                      {isOpen ? (
+                      <MetricTable 
+                        numberOfOnboardings={numberOfOnboardings} 
+                        isOpen={isOpen} handleCloseClick={handleCloseClick} 
+                        title={"Total Onboarding Remaining"} 
+                        />) 
+                      // Collapsed
+                      : (<MetricCard 
+                            totalOnboardings={totalOnboardings} 
+                            title={"Total Onboarding Remaining"} 
+                            /> )}
                     </motion.div>
-
-                    {/* <MetricCard  totalIntercomClosed={totalIntercomClosed}/> */}
-                    {/* <MetricCard  />
-                    <MetricCard  />
-                    <MetricCard  />
-                    <MetricCard  /> */}
                 </div>
             </div>
         </div>
     )
-}
+  }
+  
+  // {/* <MetricCard  totalIntercomClosed={totalIntercomClosed}/> */}
+  // {/* <MetricCard  />
+  // <MetricCard  />
+  // <MetricCard  />
+  // <MetricCard  /> */}
+
+
+
+
+
 
 
     

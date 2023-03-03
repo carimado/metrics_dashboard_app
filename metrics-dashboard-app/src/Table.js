@@ -106,8 +106,9 @@ export default function MetricTable({numberOfOnboardings, isOpen, handleCloseCli
 
 
   return (
-    <div>
+    <div className="table-container">
       <button className="close-button" onClick={handleCardCollapse}> X </button>
+      <h2>Onboarding: Customers Remaining</h2>
       <table className="table-container">
         <th className="table-header name-data">Name</th>
         {weekArray.map((week, index) => {
