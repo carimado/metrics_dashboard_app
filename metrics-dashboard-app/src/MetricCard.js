@@ -11,8 +11,8 @@ export default function MetricCard(props) {
     return (
         <div className="metric-card-container">
             <div className="card-contents">
+                <h2>{props.title}</h2>
                 <h1>{props.totalOnboardings}</h1>
-                <p>{props.session}</p>
             </div>
         </div>
     )

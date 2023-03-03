@@ -8,17 +8,18 @@ import MetricTable from './Table';
 
 import { useState, useEffect } from 'react';
 import { db } from './firebase-config';
-import { collection, orderBy, query, where, getDocs } from "firebase/firestore";
+import { collection, orderBy, query, getDocs } from "firebase/firestore";
 import { useNavigate } from 'react-router-dom';
 
 import { motion } from 'framer-motion'
 
 export default function Dashboard() {
     const [numberOfOnboardings, setNumberOfOnboardings] = useState([]);
-    const [totalOnboarding, setTotalOnboarding] = useState(0);
+    const [totalOnboardingForWeek, setTotalOnboardingForWeek] = useState([]);
     const [isOpen, setIsOpen] = useState(false);
 
-    let navigate = useNavigate()
+    let navigate = useNavigate();
+
     useEffect(() => {
       let authToken = sessionStorage.getItem('Auth Token')
       if (!authToken) {
@@ -27,6 +28,7 @@ export default function Dashboard() {
       if (authToken) {
         navigate('/')
       }
+      // eslint-disable-next-line
     }, [])
     
     const handleClick = () => {
@@ -43,20 +45,6 @@ export default function Dashboard() {
     // console.log(numberOfIntercomClosed, numberOfOnboardings)
   
     useEffect(() => {
-
-      // const getNumberOfOnboardings = async () => {
-      //   const querySnapshot = await getDocs(collection(db, "numberOfOnboardings"));
-      //   console.log(querySnapshot)
-      //   const metricData = []
-        
-      //   querySnapshot.forEach((doc) => {
-          
-      //     metricData.push(doc.data())
-      //   });
-      //   setNumberOfOnboardings(metricData)
-      // }
-
-      // console.log(getNumberOfOnboardings)
 
       const getNumberOfOnboardings = async () => {
         const querySnapshot = await getDocs(collection(db, "numberOfOnboardings"))
@@ -84,72 +72,36 @@ export default function Dashboard() {
       // getNumberOfOnboardings()
       // getNumberOfIntercomClosed()
 
+      const colRef = collection(db, "numberOfOnboardings")
+
+      const getLatestOnboardingCounts = async () => {
+        const q = query(colRef, orderBy("date", "desc"))
+        const querySnapshot = await getDocs(q)
+        const data = []
+  
+        querySnapshot.forEach((doc) => {
+          const email = doc.data().email
+          const onboardingCount = doc.data().onboardingRemaining
+          const user = data.find((user) => {
+            return user.email === email
+          }
+          )
+          if (!user) {
+            data.push({
+              email: email,
+              onboardingCount: onboardingCount
+            })
+          }
+        })
+        setTotalOnboardingForWeek(data)
+      }
+      getLatestOnboardingCounts()
+
     }, []);
 
-
-    const totalOnboardings = numberOfOnboardings.reduce((acc, curr) => {
-      return acc + curr.onboardingRemaining
+    const totalOnboardings = totalOnboardingForWeek.reduce((acc, item) => {
+      return acc + item.onboardingCount
     }, 0)
-
-
-    // Steps to implement total for each user:
-    // 1. loop through the numberOfOnboardings object
-    // 2. check each of the elements for the latest date for each user
-    // 3. push it to an array to total/reduce it
-
-    const colRef = collection(db, "numberOfOnboardings")
-
-    const getLatestOnboardingCounts = async () => {
-      const q = query(colRef, orderBy("date", "desc"))
-      const querySnapshot = await getDocs(q)
-      const data = []
-
-      querySnapshot.forEach((doc) => {
-        const email = doc.data().email
-        const onboardingCount = doc.data().onboardingRemaining
-        const user = data.find((user) => {
-          return user.email === email
-        }
-        )
-        if (!user) {
-          data.push({
-            email: email,
-            onboardingCount: onboardingCount
-          })
-        }
-      })
-      setTotalOnboarding(data)
-    }
-
-    getLatestOnboardingCounts()
-
-
-    const totalForEachUser = totalOnboarding.reduce((acc, curr) => {
-      return acc + curr.onboardingCount
-    }, 0)
-
-    
-
-
-
-
-    
-
-
-    // const totalForEachUser = numberOfOnboardings.forEach((user) => {
-    //   // I need to insert validation to only return each unique users entry against the date
-    //   console.log(user.date)
-
-    //   // const date = user.date.toDate()
-    //   // const email = user.email
-
-    //   // const today = new Date()
-
-    //   // const difference = today - date
-
-  
-    
-    
 
     return (
         <div className="dashboard">
@@ -157,15 +109,12 @@ export default function Dashboard() {
             <div className="dashboard-container">
                 <Header className="header"/>
                 <div className="card-container">
-
                     <motion.div data-testid="test-click" className='card' onClick={isOpen ? undefined : handleClick} whileHover={{ scale: 1.05 }}>
-
-                      {isOpen ? ( <MetricCard session={sessionStorage.getItem('CurrentUser')} totalOnboardings={totalOnboardings}>
-                      </MetricCard>
+                      {/* Rendering of card contents when expanded */}
+                      {isOpen ? ( <MetricTable numberOfOnboardings={numberOfOnboardings} isOpen={isOpen} handleCloseClick={handleCloseClick}/>
                       
-                      ) : ( <MetricCard totalOnboardings={totalForEachUser}></MetricCard> )}
-
-                      {isOpen && (<MetricTable numberOfOnboardings={numberOfOnboardings} isOpen={isOpen} handleCloseClick={handleCloseClick}/>)}
+                      // Rendering of the card contents on the Dashboard
+                      ) : ( <MetricCard totalOnboardings={totalOnboardings} title={"Total Onboarding Remaining"}></MetricCard> )}
 
                     </motion.div>
 
@@ -224,3 +173,9 @@ export default function Dashboard() {
     //     user.onboardingRemaining = item.onboardingRemaining
     //   }
     // })
+
+
+    // Steps to implement total for each user:
+    // 1. loop through the numberOfOnboardings object
+    // 2. check each of the elements for the latest date for each user
+    // 3. push it to an array to total/reduce it
