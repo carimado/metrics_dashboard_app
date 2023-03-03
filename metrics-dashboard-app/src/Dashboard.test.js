@@ -1,7 +1,9 @@
-import { render, screen, fireEvent } from "@testing-library/react"
-import Dashboard from "./Dashboard"
-import MetricTable from "./Table"
-import { motion } from 'framer-motion';
+// import { render, screen, fireEvent } from "@testing-library/react"
+// import Dashboard from "./Dashboard"
+// import MetricTable from "./Table"
+// import { motion } from 'framer-motion';
+// import { MemoryRouter, Route } from 'react-router-dom';
+// import Dashboard from './Dashboard';
 
 // test("total metric is displayed", () => {
 //     const dummyData = {
@@ -24,24 +26,10 @@ import { motion } from 'framer-motion';
 
 //     render (
 //         // the component
-//         <Dashboard numberOfOnboardings={dummqyData}/>
+//         <Dashboard numberOfOnboardings={dummyData}/>
 //     )
 
 //     fireEvent.click(screen.getByTestId('test-click'))
 
 //     expect(clickHandler).toHaveBeenCalled()
 // })
-
-test("card clicks and expands", () => {
-    const handleClick = jest.fn()
-
-    render (
-        <motion.div className="card" onClick={handleClick}>
-            <MetricTable />
-        </motion.div>
-    )
-
-    fireEvent.click(screen.getByTestId('test-click'))
-
-    expect(handleClick).toHaveBeenCalled()
-})

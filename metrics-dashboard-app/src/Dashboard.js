@@ -109,18 +109,19 @@ export default function Dashboard() {
             <div className="dashboard-container">
                 <Header className="header"/>
                 <div className="card-container">
-                    <motion.div data-testid="test-click" className='card' onClick={isOpen ? undefined : handleClick} whileHover={{ scale: 1.05 }}>
+                    <motion.div className='card' onClick={isOpen ? undefined : handleClick} whileHover={{ scale: 1.05 }}>
                       {/* Expanded */}
                       {isOpen ? (
                       <MetricTable 
                         numberOfOnboardings={numberOfOnboardings} 
                         isOpen={isOpen} handleCloseClick={handleCloseClick} 
-                        title={"Total Onboarding Remaining"} 
+                        title={"Total Onboarding Remaining"}
                         />) 
                       // Collapsed
                       : (<MetricCard 
                             totalOnboardings={totalOnboardings} 
                             title={"Total Onboarding Remaining"} 
+                            data-testid="metric-card"
                             /> )}
                     </motion.div>
                 </div>
