@@ -4,12 +4,12 @@ import { getWeek } from "date-fns";
 import TableInput from './TableInput';
 import { useEffect, useState } from "react";
 
+import { db } from "./firebase-config";
+import { collection, query, where, getDocs } from "firebase/firestore";
+
  
+
 export default function MetricTable({numberOfOnboardings, isOpen, handleCloseClick}) {
-
-
-  // 1. loop through the numberOfOnboardings
-  // 2. 
 
   const employees = [];
   for (let i = 0; i < numberOfOnboardings.length; i++) {
@@ -21,8 +21,6 @@ export default function MetricTable({numberOfOnboardings, isOpen, handleCloseCli
     //   if ()
     // }
     
-    
-
     let employee = employees.find((e) => {
       let dates = []
       for (let item in report) {
@@ -46,10 +44,10 @@ export default function MetricTable({numberOfOnboardings, isOpen, handleCloseCli
 
     employee.numberPerWeek[week] = report.onboardingRemaining;
     
-    console.log(report.onboardingRemaining)
+    // console.log(report.onboardingRemaining)
   }
 
-  console.log(employees)
+  // console.log(employees)
 
   let dateOfOnboarding = numberOfOnboardings.map((data) => {
     return data.date;

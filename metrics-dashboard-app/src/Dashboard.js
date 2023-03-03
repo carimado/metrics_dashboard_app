@@ -8,13 +8,14 @@ import MetricTable from './Table';
 
 import { useState, useEffect } from 'react';
 import { db } from './firebase-config';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, orderBy, query, where, getDocs } from "firebase/firestore";
 import { useNavigate } from 'react-router-dom';
 
 import { motion } from 'framer-motion'
 
 export default function Dashboard() {
     const [numberOfOnboardings, setNumberOfOnboardings] = useState([]);
+    const [totalOnboarding, setTotalOnboarding] = useState(0);
     const [isOpen, setIsOpen] = useState(false);
 
     let navigate = useNavigate()
@@ -96,26 +97,58 @@ export default function Dashboard() {
     // 2. check each of the elements for the latest date for each user
     // 3. push it to an array to total/reduce it
 
+    const colRef = collection(db, "numberOfOnboardings")
+
+    const getLatestOnboardingCounts = async () => {
+      const q = query(colRef, orderBy("date", "desc"))
+      const querySnapshot = await getDocs(q)
+      const data = []
+
+      querySnapshot.forEach((doc) => {
+        const email = doc.data().email
+        const onboardingCount = doc.data().onboardingRemaining
+        const user = data.find((user) => {
+          return user.email === email
+        }
+        )
+        if (!user) {
+          data.push({
+            email: email,
+            onboardingCount: onboardingCount
+          })
+        }
+      })
+      setTotalOnboarding(data)
+    }
+
+    getLatestOnboardingCounts()
+
+
+    const totalForEachUser = totalOnboarding.reduce((acc, curr) => {
+      return acc + curr.onboardingCount
+    }, 0)
+
+    
 
 
 
 
-
-    const totalForEachUser = numberOfOnboardings.forEach((user) => {
-      // I need to insert validation to only return each unique users entry against the date
-      console.log(user.date)
-
-      // const date = user.date.toDate()
-      // const email = user.email
-
-      // const today = new Date()
-
-      // const difference = today - date
+    
 
 
-    })
+    // const totalForEachUser = numberOfOnboardings.forEach((user) => {
+    //   // I need to insert validation to only return each unique users entry against the date
+    //   console.log(user.date)
 
-    console.log(totalForEachUser)
+    //   // const date = user.date.toDate()
+    //   // const email = user.email
+
+    //   // const today = new Date()
+
+    //   // const difference = today - date
+
+  
+    
     
 
     return (
@@ -130,7 +163,7 @@ export default function Dashboard() {
                       {isOpen ? ( <MetricCard session={sessionStorage.getItem('CurrentUser')} totalOnboardings={totalOnboardings}>
                       </MetricCard>
                       
-                      ) : ( <MetricCard totalOnboardings={totalOnboardings}></MetricCard> )}
+                      ) : ( <MetricCard totalOnboardings={totalForEachUser}></MetricCard> )}
 
                       {isOpen && (<MetricTable numberOfOnboardings={numberOfOnboardings} isOpen={isOpen} handleCloseClick={handleCloseClick}/>)}
 
@@ -146,8 +179,6 @@ export default function Dashboard() {
         </div>
     )
 }
-
-
 
 
     
@@ -193,8 +224,3 @@ export default function Dashboard() {
     //     user.onboardingRemaining = item.onboardingRemaining
     //   }
     // })
-
-    // console.log(totalOnboardingRemainingForEachUser)
-
-    // check the date and for each user get the latest entry
-
