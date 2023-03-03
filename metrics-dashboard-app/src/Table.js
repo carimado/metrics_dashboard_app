@@ -4,14 +4,16 @@ import { getWeek } from "date-fns";
 import TableInput from './TableInput';
 import { useEffect, useState } from "react";
 
-import { db } from "./firebase-config";
-import { collection, query, where, getDocs } from "firebase/firestore";
+// import { db } from "./firebase-config";
+// import { collection, query, where, getDocs, orderBy } from "firebase/firestore";
 
  
 
-export default function MetricTable({numberOfOnboardings, isOpen, handleCloseClick}) {
+export default function MetricTable({ numberOfOnboardings, isOpen, handleCloseClick }) {
+  // const [employees, setEmployees] = useState([]);
 
   const employees = [];
+
   for (let i = 0; i < numberOfOnboardings.length; i++) {
     let report = numberOfOnboardings[i];
     // for (const [key, value] of Object.entries(report)) {
@@ -136,12 +138,19 @@ export default function MetricTable({numberOfOnboardings, isOpen, handleCloseCli
             </tr>
           );
         })}
+        <td className="table-data table-data-name">Total</td>
+
       </table>
 
       <TableInput session={sessionStorage.getItem('CurrentUser')}/>
     </div>
   );
 }
+
+
+
+
+
 
 // TO DO -
 // I want to render this table with the data from the DB - DONE

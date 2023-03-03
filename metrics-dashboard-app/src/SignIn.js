@@ -1,3 +1,5 @@
+import './SignIn.css'
+
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
@@ -37,7 +39,7 @@ export default function SignIn( ) {
   }
 
   return (
-      <Container component="main" maxWidth="xs">
+      <Container component="main" maxWidth="xs" className='form-container'>
         <Box
           sx={{
             marginTop: 8,
