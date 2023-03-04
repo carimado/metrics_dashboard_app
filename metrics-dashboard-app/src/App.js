@@ -20,7 +20,7 @@ function App() {
     if (id === 1) {
       createUserWithEmailAndPassword(authetication, email, password)
       .then((response) => {
-        navigate('/')
+        navigate('./')
         sessionStorage.setItem('Auth Token', response._tokenResponse.refreshToken)
       })
     }
@@ -28,7 +28,7 @@ function App() {
       signInWithEmailAndPassword(authetication, email, password)
       .then((response) => {
         console.log({response})
-        navigate('/')
+        navigate('./')
         sessionStorage.setItem('Auth Token', response._tokenResponse.refreshToken)
       })
     }
@@ -37,7 +37,7 @@ function App() {
   useEffect(() => {
     let authToken = sessionStorage.getItem('Auth Token')
     if (authToken) {
-      navigate('/')
+      navigate('./')
     }
   }, [])
 

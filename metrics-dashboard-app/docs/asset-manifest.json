@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/metrics-dashboard-app/static/css/main.0452eed2.css",
+    "main.js": "/metrics-dashboard-app/static/js/main.a94def40.js",
+    "static/js/787.472de205.chunk.js": "/metrics-dashboard-app/static/js/787.472de205.chunk.js",
+    "static/media/banner.jpg": "/metrics-dashboard-app/static/media/banner.e938a76ae41d6cc53fe2.jpg",
+    "index.html": "/metrics-dashboard-app/index.html",
+    "main.0452eed2.css.map": "/metrics-dashboard-app/static/css/main.0452eed2.css.map",
+    "main.a94def40.js.map": "/metrics-dashboard-app/static/js/main.a94def40.js.map",
+    "787.472de205.chunk.js.map": "/metrics-dashboard-app/static/js/787.472de205.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.0452eed2.css",
+    "static/js/main.a94def40.js"
+  ]
+}
