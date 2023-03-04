@@ -5,9 +5,8 @@ import { collection, doc, addDoc, setDoc, Timestamp } from "firebase/firestore"
 import { useEffect, useState } from "react"
 import { db } from './firebase-config';
 
-export default function TableInput({session}) {
+export default function TableInput({session, onSaveComplete}) {
     const [ numberOfOnboardings, setNumberOfOnboardings ] = useState('');
-
 
     const handleSubmitTableInput = async (e) => {
         e.preventDefault()
@@ -22,13 +21,14 @@ export default function TableInput({session}) {
             })
             console.log("Document written with ID: ", docRef);
 
+            onSaveComplete()
+
             setNumberOfOnboardings('')
 
         } else {
             alert('Please enter a number')
         }
     }
-
 
     const handleInputChange = (e) => {
         setNumberOfOnboardings(e.target.value)
@@ -37,15 +37,6 @@ export default function TableInput({session}) {
     return (
         <div>
             <form>
-                {/* <TextField
-                className='table-input'
-                    id="outlined-number"
-                    label="Number"
-                    type="number"
-                    InputLabelProps={{
-                        shrink: true,
-                    }} 
-                    size="small" /> */}
                 <input type={'text'} placeholder={'# Customers Remaining'} value={numberOfOnboardings} onChange={handleInputChange}/>
                 <button className='submit' onClick={handleSubmitTableInput}>Submit</button>
             </form>

@@ -9,19 +9,13 @@ import { useEffect, useState } from "react";
 
  
 
-export default function MetricTable({ numberOfOnboardings, isOpen, handleCloseClick }) {
-  // const [employees, setEmployees] = useState([]);
+export default function MetricTable({ numberOfOnboardings, isOpen, handleCloseClick, onSaveComplete }) {
 
   const employees = [];
 
+
   for (let i = 0; i < numberOfOnboardings.length; i++) {
     let report = numberOfOnboardings[i];
-    // for (const [key, value] of Object.entries(report)) {
-    //   let employeeRecords = []
-    //   console.log(`${key}:${value}`)
-
-    //   if ()
-    // }
     
     let employee = employees.find((e) => {
       let dates = []
@@ -121,12 +115,12 @@ export default function MetricTable({ numberOfOnboardings, isOpen, handleCloseCl
           );
         })}
         {employees.map((employee, index) => {
-          console.log(employee, index)
+          // console.log(employee, index)
           return (
             <tr className="table-row">
               <td className="table-data table-data-name">{employee.email}</td>
               {weekArray.map((week, index) => {
-                console.log(week)
+                // console.log(week)
                 return (
                   <td id={index} className="table-header">
                     {employee.numberPerWeek[week]}
@@ -142,7 +136,7 @@ export default function MetricTable({ numberOfOnboardings, isOpen, handleCloseCl
 
       </table>
 
-      <TableInput session={sessionStorage.getItem('CurrentUser')}/>
+      <TableInput session={sessionStorage.getItem('CurrentUser')} onSaveComplete={onSaveComplete}/>
     </div>
   );
 }

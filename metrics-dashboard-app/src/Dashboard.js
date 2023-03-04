@@ -44,20 +44,20 @@ export default function Dashboard() {
 
     // console.log(numberOfIntercomClosed, numberOfOnboardings)
   
+    const getNumberOfOnboardings = async () => {
+      const querySnapshot = await getDocs(collection(db, "numberOfOnboardings"))
+      const metricData = []
+      
+      querySnapshot.forEach((doc) => {
+        metricData.push(doc.data())
+      })
+      setNumberOfOnboardings(metricData)
+      console.log('Complete', metricData)
+    }
+
     useEffect(() => {
-
-      const getNumberOfOnboardings = async () => {
-        const querySnapshot = await getDocs(collection(db, "numberOfOnboardings"))
-        const metricData = []
-
-        querySnapshot.forEach((doc) => {
-          metricData.push(doc.data())
-        })
-        setNumberOfOnboardings(metricData)
-      }
       
       getNumberOfOnboardings()
-
 
       // const getNumberOfIntercomClosed = async () => {
       //   const querySnapshot = await getDocs(collection(db, "numberOfIntercomClosed"))
@@ -116,9 +116,9 @@ export default function Dashboard() {
                         numberOfOnboardings={numberOfOnboardings} 
                         isOpen={isOpen} handleCloseClick={handleCloseClick} 
                         title={"Total Onboarding Remaining"}
-                        />) 
-                      // Collapsed
-                      : (<MetricCard 
+                        onSaveComplete={getNumberOfOnboardings}
+                        />) // Collapsed
+                            : (<MetricCard 
                             totalOnboardings={totalOnboardings} 
                             title={"Total Onboarding Remaining"} 
                             data-testid="metric-card"
