@@ -8,6 +8,7 @@ import { db } from './firebase-config';
 export default function TableInput({session, onSaveComplete}) {
     const [ numberOfOnboardings, setNumberOfOnboardings ] = useState('');
 
+    // NOTE: Input from form, then converts to number, document is written to the collection
     const handleSubmitTableInput = async (e) => {
         e.preventDefault()
         
@@ -22,7 +23,6 @@ export default function TableInput({session, onSaveComplete}) {
             console.log("Document written with ID: ", docRef);
 
             onSaveComplete()
-
             setNumberOfOnboardings('')
 
         } else {

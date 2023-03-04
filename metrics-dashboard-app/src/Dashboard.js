@@ -20,6 +20,9 @@ export default function Dashboard() {
 
     let navigate = useNavigate();
 
+    // NOTE: Route to check if token exists
+    // - If the token exists go to Dashboard
+    // - If does not exist go to /signin
     useEffect(() => {
       let authToken = sessionStorage.getItem('Auth Token')
       if (!authToken) {
@@ -31,19 +34,20 @@ export default function Dashboard() {
       // eslint-disable-next-line
     }, [])
     
+    // NOTE: Click handler to expand card
     const handleClick = () => {
       setIsOpen(!isOpen)
     }
 
+    // NOTE: Click handler to close click INSIDE the card
+    // - The state isOpen is passed as props
     const handleCloseClick = () => {
       setIsOpen(false)
     }
-
-    // console.log(numberOfOnboardings)
-    // const [numberOfIntercomClosed, setNumberOfIntercomClosed] = useState([]);
-
-    // console.log(numberOfIntercomClosed, numberOfOnboardings)
   
+    // NOTE: Fetches ALL docs inside "Collection" in Firebase
+    // - Filtered doc.data() is pushed into metricData and set in state
+    // numberOfOnboardings state is passed to the card/table
     const getNumberOfOnboardings = async () => {
       const querySnapshot = await getDocs(collection(db, "numberOfOnboardings"))
       const metricData = []
@@ -52,53 +56,45 @@ export default function Dashboard() {
         metricData.push(doc.data())
       })
       setNumberOfOnboardings(metricData)
-      console.log('Complete', metricData)
+    }
+
+    // NOTE: Queries DB for LATEST entries to display totals for the week
+    // - Iterates through the querySnapshot and extracts email and count 
+    // - Searches the data array for an object with the same email. If exists skip
+    // - If does not exist, creates an object with email and onboardingCount
+    // - Updates the state
+
+    const colRef = collection(db, "numberOfOnboardings")
+
+    const getLatestOnboardingCounts = async () => {
+      const q = query(colRef, orderBy("date", "desc"))
+      const querySnapshot = await getDocs(q)
+      const data = []
+
+      querySnapshot.forEach((doc) => {
+        const email = doc.data().email
+        const onboardingCount = doc.data().onboardingRemaining
+        const user = data.find((user) => {
+          return user.email === email
+        }
+        )
+        if (!user) {
+          data.push({
+            email: email,
+            onboardingCount: onboardingCount
+          })
+        }
+      })
+      setTotalOnboardingForWeek(data)
     }
 
     useEffect(() => {
-      
       getNumberOfOnboardings()
-
-      // const getNumberOfIntercomClosed = async () => {
-      //   const querySnapshot = await getDocs(collection(db, "numberOfIntercomClosed"))
-      //   const metricDataForIntercomClosed = []
-
-      //   querySnapshot.forEach((doc) => {
-      //     metricDataForIntercomClosed.push(doc.data())
-      //   })
-      //   setNumberOfIntercomClosed(metricDataForIntercomClosed)
-      // }
-
-      // getNumberOfOnboardings()
-      // getNumberOfIntercomClosed()
-
-      const colRef = collection(db, "numberOfOnboardings")
-
-      const getLatestOnboardingCounts = async () => {
-        const q = query(colRef, orderBy("date", "desc"))
-        const querySnapshot = await getDocs(q)
-        const data = []
-  
-        querySnapshot.forEach((doc) => {
-          const email = doc.data().email
-          const onboardingCount = doc.data().onboardingRemaining
-          const user = data.find((user) => {
-            return user.email === email
-          }
-          )
-          if (!user) {
-            data.push({
-              email: email,
-              onboardingCount: onboardingCount
-            })
-          }
-        })
-        setTotalOnboardingForWeek(data)
-      }
       getLatestOnboardingCounts()
-
+      // eslint-disable-next-line 
     }, []);
 
+    // NOTE: the state totalOnboardingForWeek is totalled and passed to MetricCard component
     const totalOnboardings = totalOnboardingForWeek.reduce((acc, item) => {
       return acc + item.onboardingCount
     }, 0)
@@ -115,14 +111,21 @@ export default function Dashboard() {
                       <MetricTable 
                         numberOfOnboardings={numberOfOnboardings} 
                         isOpen={isOpen} handleCloseClick={handleCloseClick} 
-                        title={"Total Onboarding Remaining"}
+                        title={"Onboarding: Customers Remaining"}
                         onSaveComplete={getNumberOfOnboardings}
                         />) // Collapsed
                             : (<MetricCard 
                             totalOnboardings={totalOnboardings} 
                             title={"Total Onboarding Remaining"} 
                             data-testid="metric-card"
+                            onSaveComplete={getLatestOnboardingCounts}
                             /> )}
+                    </motion.div>
+                    <motion.div className='card' onClick={isOpen ? undefined : handleClick} whileHover={{ scale: 1.05 }}>
+                      <MetricCard />
+                    </motion.div>
+                    <motion.div className='card' onClick={isOpen ? undefined : handleClick} whileHover={{ scale: 1.05 }}>
+                      <MetricCard />
                     </motion.div>
                 </div>
             </div>

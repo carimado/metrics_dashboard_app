@@ -109,3 +109,12 @@ Tech:
 ![Database Schema](./planning/v1dbschema.png)
 
 ---
+
+## Learnings and Challenges
+- Scope and adapting to that scope bringing new challenges
+- Learning Firebase and Queries
+- Rendering Data
+- Passing around data / props
+- Confusion around naming variables
+
+## Next steps

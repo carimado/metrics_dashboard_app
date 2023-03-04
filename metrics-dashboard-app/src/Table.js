@@ -4,15 +4,18 @@ import { getWeek } from "date-fns";
 import TableInput from './TableInput';
 import { useEffect, useState } from "react";
 
-// import { db } from "./firebase-config";
-// import { collection, query, where, getDocs, orderBy } from "firebase/firestore";
-
- 
-
 export default function MetricTable({ numberOfOnboardings, isOpen, handleCloseClick, onSaveComplete }) {
+  const [isCardOpen, setIsCardOpen] = useState(isOpen);
 
+  const handleCardCollapse = () => {
+    setIsCardOpen(!isCardOpen);
+    handleCloseClick();
+  };
+
+  // NOTE: Loops through numberOfOnboardings passed as props
+  // - Finds employees with the same email and sets it to the array
+  // - Else it creates a new employee object and adds it to the array
   const employees = [];
-
 
   for (let i = 0; i < numberOfOnboardings.length; i++) {
     let report = numberOfOnboardings[i];
@@ -36,30 +39,30 @@ export default function MetricTable({ numberOfOnboardings, isOpen, handleCloseCl
 
       employees.push(employee);
     }
-    const week = getWeek(new Date(report.date.seconds * 1000));
 
+    // NOTE: Sets number of onboardingRemaining for the week using library and Firebase
+    // - Key (numberPerWeek), Value (onboardingRemaining)
+    const week = getWeek(new Date(report.date.seconds * 1000));
     employee.numberPerWeek[week] = report.onboardingRemaining;
-    
-    // console.log(report.onboardingRemaining)
   }
 
-  // console.log(employees)
 
+  // NOTE: Returns the date in the numberOfOnboardings
   let dateOfOnboarding = numberOfOnboardings.map((data) => {
     return data.date;
   });
 
+  // NOTE: Converts the above to an actual date instead of nanoseconds and seconds
   let convertDateOfOnboarding = dateOfOnboarding.map((date) => {
     return new Date(date.seconds * 1000);
   });
 
-  // get each persons number of onboarding
+  // NOTE: Returns the numberOfOnboardings remaining for each person
   let eachPersonsNumberOfOnboarding = numberOfOnboardings.map((data) => {
     return data.onboardingRemaining;
   });
-  console.log(eachPersonsNumberOfOnboarding);
 
-  // put the corresponding week and each persons number of onboarding into an object
+  // NOTE: Creates object pushes to the array
   let correspondingWeekAndEachPersonsNumberOfOnboarding = [];
   for (let i = 0; i < convertDateOfOnboarding.length; i++) {
     correspondingWeekAndEachPersonsNumberOfOnboarding.push({
@@ -68,8 +71,8 @@ export default function MetricTable({ numberOfOnboardings, isOpen, handleCloseCl
       onboarding: eachPersonsNumberOfOnboarding[i],
     });
   }
-  console.log({ correspondingWeekAndEachPersonsNumberOfOnboarding });
 
+  // NOTE: Checks if corresponding week is equal to the array above
   if (dateOfOnboarding) {
     let correspondingWeek = convertDateOfOnboarding.map((date) => {
       return getWeek(date);
@@ -81,25 +84,14 @@ export default function MetricTable({ numberOfOnboardings, isOpen, handleCloseCl
     }
   }
 
+  // NOTE: Creates an array of week numbers and mapped in JSX
   const getCurrentDate = new Date();
-  // console.log(getCurrentDate)
   const currentWeek = getWeek(getCurrentDate);
-  // console.log(currentWeek)
 
   const weekArray = [];
   for (let i = 1; i <= currentWeek; i++) {
     weekArray.push(i);
   }
-  // console.log(weekArray)
-
-  // get the isopen state from the dashboard component, when the x button is clicked the card will collapse and be sent back to parent
-  const [isCardOpen, setIsCardOpen] = useState(isOpen);
-
-  const handleCardCollapse = () => {
-    setIsCardOpen(!isCardOpen);
-    handleCloseClick();
-  };
-
 
   return (
     <div className="table-container">
@@ -115,7 +107,6 @@ export default function MetricTable({ numberOfOnboardings, isOpen, handleCloseCl
           );
         })}
         {employees.map((employee, index) => {
-          // console.log(employee, index)
           return (
             <tr className="table-row">
               <td className="table-data table-data-name">{employee.email}</td>
@@ -127,8 +118,6 @@ export default function MetricTable({ numberOfOnboardings, isOpen, handleCloseCl
                   </td>
                 );
               })}
-              {/* <td>{data.week}</td>
-              <td>{data.onboarding}</td> */}
             </tr>
           );
         })}
