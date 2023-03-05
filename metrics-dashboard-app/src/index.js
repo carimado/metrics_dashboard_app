@@ -16,3 +16,5 @@ root.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+
+// heyo! good luck to yall with everything! its been fun :) keep pushing and keep learning. lmk if anyones down for a beer in sydney, we all deserve it. feel free to add me on linkedin! https://www.linkedin.com/in/carimado/
