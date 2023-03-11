@@ -194,3 +194,5 @@ export default function Dashboard() {
     // 1. loop through the numberOfOnboardings object
     // 2. check each of the elements for the latest date for each user
     // 3. push it to an array to total/reduce it
+
+    // 
